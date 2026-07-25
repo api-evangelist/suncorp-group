@@ -1,0 +1,140 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  review.yml (2026-07-25 API Evangelist review), plus live 2026-07-25 probes of
+  the /.well-known/ surface, the brand sitemaps and the gated broker portals.
+  There is no OpenAPI, AsyncAPI or GraphQL schema for Suncorp Group, so every
+  assertion below is derived from published surfaces rather than from a spec.
+scope: >-
+  Suncorp Group publishes no public API. This artifact records which
+  cross-cutting API and industry standards the group's public surface does and
+  does not conform to, and which regulatory regimes it operates under. It is
+  negative-evidence-heavy by design: the absence is the finding for an Australian
+  general insurer, because no mandate forces a public endpoint into existence.
+standards:
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger definition on any Suncorp Group or brand host.
+    /openapi.json, /openapi.yaml, /swagger.json and /api-docs return 404 on
+    www.suncorp.com.au, www.vero.com.au, www.aami.com.au, www.gio.com.au and
+    www.vero.co.nz.
+- id: asyncapi
+  conforms: false
+  evidence: No event catalog, webhook documentation or AsyncAPI document exists.
+- id: graphql
+  conforms: false
+  evidence: >-
+    No /graphql surface on any brand domain. POST introspection to
+    www.vero.co.nz/graphql returns 301 to the marketing site;
+    www.aainsurance.co.nz/graphql returns 404.
+- id: grpc
+  conforms: false
+  evidence: No published .proto definitions; github.com/SuncorpGroup has one 2015 repository.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No public OAuth 2.0 authorization server.
+    /.well-known/oauth-authorization-server returns 404 on every probed host
+    including the broker identity provider online.verocentral.com.au.
+- id: oidc
+  conforms: false
+  evidence: >-
+    No anonymous OpenID Connect discovery document.
+    online.verocentral.com.au/.well-known/openid-configuration returns a Tomcat
+    404; the EngineersPIandStrataPortal host returns an SPA HTML shell that does
+    not parse as JSON. Broker access is browser-based federated SSO under the
+    Suncorp Access Single ID (SID) program, not a machine-readable OIDC surface.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: >-
+    No /.well-known/security.txt on any of the eight hosts probed 2026-07-25 —
+    see well-known/suncorp-group-well-known.yml.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: 48 well-known probes across 8 hosts returned zero parseable documents.
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: No public API responses to observe.
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: No public API and no published deprecation policy.
+- id: acord
+  conforms: false
+  evidence: >-
+    No mention of ACORD, AL3, ACORD XML, ACORD certification or NGDS anywhere on
+    Suncorp Group or brand properties. Australia's broker-to-insurer transaction
+    seam is not ACORD/IVANS.
+- id: cdr-consumer-data-right
+  conforms: false
+  applicable: false
+  evidence: >-
+    The Consumer Data Right was designated to extend to general insurance and was
+    then deferred and de-prioritised. There is no live open-insurance obligation
+    in Australia, so no mandated public Product Reference Data endpoint exists for
+    a general insurer. Contrast the sibling record api-evangelist/suncorp-bank,
+    where the CDR banking mandate produced a live unauthenticated public PRD API.
+- id: tls13
+  conforms: true
+  evidence: >-
+    All twelve probed hosts negotiate TLS 1.3 — see
+    security/suncorp-group-domain-security.yml.
+- id: hsts
+  conforms: partial
+  evidence: >-
+    9 of 12 hosts send Strict-Transport-Security. Absent on
+    www.suncorpgroup.com.au, www.aainsurance.co.nz and the broker identity
+    provider online.verocentral.com.au.
+- id: dnssec
+  conforms: false
+  evidence: Zero of twelve registrable domains are DNSSEC-signed.
+- id: caa
+  conforms: false
+  evidence: Zero of twelve registrable domains publish CAA records.
+- id: spf
+  conforms: true
+  evidence: All twelve registrable domains publish an SPF record.
+- id: dmarc
+  conforms: true
+  evidence: All twelve registrable domains publish DMARC with p=reject.
+industry_integration:
+  note: >-
+    The real machine-to-machine seam in the Australian intermediated market is not
+    a standards body specification but three commercial trading networks, all of
+    which Suncorp/Vero names in its own material. None publishes a public
+    definition, so none can be harvested.
+  channels:
+  - name: Steadfast Client Trading Platform (SCTP)
+    role: Broker trading platform; named by Suncorp Group's 22 June 2026 newsroom release as the launch channel for Vero's residential strata product.
+    public_spec: false
+  - name: Sunrise Exchange
+    role: Broker/insurer message exchange; named as a future availability channel in the same release.
+    public_spec: false
+  - name: Broker Management System (BMS) direct connection
+    role: >-
+      Primary channel. Vero's own broker tools page states the VeroEdge portal is
+      the fallback "for brokers who don't access Vero Edge through their own
+      Broker Management System."
+    public_spec: false
+regulatory:
+- id: apra-prudential
+  regulator: Australian Prudential Regulation Authority
+  applies: true
+  evidence: >-
+    Suncorp Group Limited (ASX: SUN) is an APRA-regulated general insurance group;
+    APRA prudential standards including CPS 234 Information Security apply.
+  note: A regulatory obligation, not a published conformance claim by Suncorp.
+- id: asic-conduct
+  regulator: Australian Securities and Investments Commission
+  applies: true
+  evidence: Conduct regulation of financial services and insurance distribution.
+- id: rbnz-icnz-nz
+  regulator: Reserve Bank of New Zealand
+  applies: true
+  evidence: Vero New Zealand and AA Insurance operate as licensed NZ insurers.
+compliance_program_published: false
+compliance_note: >-
+  No trust centre, no security portal and no named certification (SOC 2, ISO
+  27001, PCI DSS, ISO 27017/27018) is published on any Suncorp Group or brand
+  property — probe-security-programs.py returned trust=none on 2026-07-25.
+  Therefore NO `Compliance` or `TrustCenter` pointer is wired into apis.yml.

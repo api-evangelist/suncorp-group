@@ -50,6 +50,12 @@ modified: '2026-07-25'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: DomainSecurity
+  url: security/suncorp-group-domain-security.yml
+- type: Conformance
+  url: conformance/suncorp-group-conformance.yml
+- type: LLMsTxt
+  url: llms/suncorp-group-llms.txt
 - type: Website
   url: https://www.suncorpgroup.com.au/
 - type: About

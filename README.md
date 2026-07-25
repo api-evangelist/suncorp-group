@@ -49,6 +49,20 @@ The only machine-to-machine integration surface is intermediated and behind a lo
 
 Australia has the legal machinery for open insurance and no live obligation. The Consumer Data Right that already opened banking and energy was designated to extend to general insurance and then deferred, so no mandate produces a public product or quoting endpoint for a general insurer. The contrast is visible inside this same network: the sibling record [api-evangelist/suncorp-bank](https://github.com/api-evangelist/suncorp-bank) — the banking arm sold to ANZ in 2024 — does expose a live, unauthenticated CDR Product Reference Data API, because banking was mandated. Suncorp Group has none, because insurance was not.
 
+## Artifacts
+
+The enrichment pipeline ran a second round on 2026-07-25. It found no machine-readable contract anywhere in the estate, so what it produced is a structured record of the absence plus the security posture of the properties that do exist.
+
+| Artifact | File | Finding |
+|---|---|---|
+| Domain security | [`security/suncorp-group-domain-security.yml`](security/suncorp-group-domain-security.yml) | 12 hosts and 12 registrable domains probed. TLS 1.3 everywhere; SPF and DMARC `p=reject` on all twelve domains; **zero DNSSEC, zero CAA** anywhere; HSTS missing on the corporate site, the AA Insurance NZ site and the broker identity provider. |
+| Well-known | [`well-known/suncorp-group-well-known.yml`](well-known/suncorp-group-well-known.yml) | 48 RFC 8615 probes across 8 hosts, **zero documents**. No `security.txt`, no OIDC or OAuth discovery, no `api-catalog`, no `ai-plugin.json`. |
+| Conformance | [`conformance/suncorp-group-conformance.yml`](conformance/suncorp-group-conformance.yml) | Standards, industry-channel and regulatory posture — including the CDR non-designation for general insurance and the Steadfast SCTP / Sunrise / BMS channels that carry the real traffic. |
+| Authentication | [`authentication/suncorp-group-authentication.yml`](authentication/suncorp-group-authentication.yml) | No public API auth. The only published access model is browser-federated SSO to VeroEdge under Access Single ID, provisioned by a Vero representative. |
+| llms.txt | [`llms/suncorp-group-llms.txt`](llms/suncorp-group-llms.txt) | Generated — Suncorp publishes no `/llms.txt` (404 on every property). |
+
+Round two also cleared the New Zealand estate, which the first round had not reached: `www.vero.co.nz` (528-URL sitemap, zero developer paths, `/graphql` 301, `/openapi.json` 404) and `www.aainsurance.co.nz` (CloudFront, HTTP 202 on every path). `developer.` and `api.` do not resolve on either. There is no first-party SDK on npm or PyPI, no public Postman workspace or collection, no status page, and no bug bounty on HackerOne or Bugcrowd.
+
 ## Common Properties
 
 - [Website](https://www.suncorpgroup.com.au/)

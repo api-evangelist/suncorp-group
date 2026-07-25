@@ -258,6 +258,99 @@ sources:
 - url: https://raw.githubusercontent.com/api-evangelist/suncorp-bank/refs/heads/main/apis.yml
   type: APIsJSON
   note: Sibling record. Suncorp Bank was sold to ANZ on 31 July 2024 and, as a CDR data holder, does expose a live public Product Reference Data API — the contrast that makes Suncorp Group's absence legible.
+enrichmentRounds:
+- date: '2026-07-25'
+  round: 2
+  outcome: >-
+    Re-ran contract discovery against hosts the first round had not covered —
+    the New Zealand properties and the remaining Australian brands — and probed
+    the /.well-known/, package-registry, Postman and status-page surfaces. Every
+    probe missed. The "no public API" finding is confirmed and widened, and the
+    negative evidence is now captured as artifacts rather than prose.
+  newProbes:
+  - url: https://www.vero.co.nz/
+    httpStatus: 200
+    note: New Zealand Vero brand site (Incapsula). /developers, /api, /openapi.json, /swagger.json, /api-docs and /llms.txt all return 404.
+  - url: https://www.vero.co.nz/sitemap.xml
+    httpStatus: 200
+    note: 528 URLs. Zero developer, api, swagger or integration paths.
+  - url: https://www.vero.co.nz/graphql
+    httpStatus: 301
+    note: POST introspection redirects to the marketing site. No GraphQL surface.
+  - url: https://www.aainsurance.co.nz/
+    httpStatus: 202
+    note: CloudFront-fronted. Answers EVERY path with HTTP 202 and an empty body (bot challenge), so status codes from this host are not evidence. /graphql returns a 404 HTML page.
+  - url: https://developer.vero.co.nz/
+    httpStatus: 0
+    note: DNS NXDOMAIN. Same for api.vero.co.nz, developer.aainsurance.co.nz, api.aainsurance.co.nz.
+  - url: https://api.aami.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN. Same for api.gio.com.au, api.vero.com.au, developer.suncorp.com.au.
+  - url: https://www.apia.com.au/
+    httpStatus: 200
+    note: Apia brand site resolves (Incapsula). No developer surface.
+  - url: https://www.shannons.com.au/
+    httpStatus: 200
+    note: Shannons brand site resolves (Imperva). No developer surface.
+  - url: https://www.terrischeer.com.au/
+    httpStatus: 200
+    note: Terri Scheer brand site resolves (Imperva). No developer surface.
+  - url: https://www.bingle.com.au/
+    httpStatus: 200
+    note: Bingle brand site resolves (Imperva). No developer surface; the developer./api. CNAMEs remain dangling.
+  - url: https://status.suncorp.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN. No status page. Same for status.suncorpgroup.com.au.
+  - url: https://registry.npmjs.org/-/v1/search?text=suncorp
+    httpStatus: 200
+    note: Zero packages. No first-party JavaScript SDK exists.
+  - url: https://pypi.org/pypi/suncorp/json
+    httpStatus: 404
+    note: No PyPI package. No first-party Python SDK exists.
+  - url: https://www.postman.com/_api/ws/proxy (search-all "suncorp")
+    httpStatus: 200
+    note: Zero results across workspace, collection, api, apiDefinition, specification, request, environment, mock and flow. No public Postman presence.
+  - url: https://hackerone.com/suncorp
+    httpStatus: 404
+    note: No HackerOne program. bugcrowd.com/suncorp also 404. No bug bounty found.
+  - url: https://www.suncorp.com.au/security
+    httpStatus: 200
+    note: Real page, but it is a Suncorp Bank consumer "Understanding Online Safety" article — not a vulnerability disclosure policy and not a Suncorp Group insurance property. No responsible-disclosure or security@ contact published.
+  - url: https://www.suncorpgroup.com.au/.well-known/security.txt
+    httpStatus: 200
+    note: NOT a document. 212-byte Incapsula noindex HTML shell; this host returns the same body for all six well-known paths probed. See well-known/suncorp-group-well-known.yml.
+  artifactsWritten:
+  - security/suncorp-group-domain-security.yml
+  - well-known/suncorp-group-well-known.yml
+  - conformance/suncorp-group-conformance.yml
+  - authentication/suncorp-group-authentication.yml
+  - llms/suncorp-group-llms.txt
+  artifactsDeliberatelySkipped:
+  - path: openapi/, asyncapi/, graphql/, grpc/, overlays/, errors/, data-model/, skills/, arazzo/, agentic-access/, scopes/, mcp/
+    reason: No machine-readable contract exists to harvest, derive or ground against. Fabrication is not permitted.
+  - path: packages/
+    reason: Zero first-party client libraries on npm or PyPI. Nothing real to record.
+  - path: lifecycle/, changelog/, sandbox/, cli/, components/
+    reason: No status page, no versioning or deprecation policy, no sandbox, no CLI and no embeddable components are published.
+  - path: security/suncorp-group-vulnerability-disclosure.yml, security/suncorp-group-trust-center.yml
+    reason: probe-security-programs.py returned vdp=none trust=none; no disclosure policy, bug bounty, trust centre or named certification is published.
+  pointersDeliberatelyNotWired:
+  - type: WellKnown
+    reason: 48 probes across 8 hosts returned zero documents. Wiring the pointer would award the well_known_catalog check for something that does not exist.
+  - type: SecurityTxt
+    reason: No security.txt anywhere in the estate.
+  - type: Authentication
+    reason: The artifact documents a human broker portal SSO, not API authentication. Suncorp Group documents no API auth.
+  - type: Compliance
+    reason: No published certification or compliance programme.
+  - type: Security
+    reason: No responsible disclosure policy or security contact found.
+  - type: SDKs
+    reason: No first-party client libraries exist.
+  - type: Postman
+    reason: Postman search returns zero results.
+  - type: StatusPage
+    reason: status.suncorp.com.au and status.suncorpgroup.com.au are NXDOMAIN.
 actions:
   openapiPath: null
   openapiProvenance: none — no OpenAPI or Swagger definition is published by Suncorp Group or any of its brands

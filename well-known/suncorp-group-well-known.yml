@@ -1,0 +1,108 @@
+generated: '2026-07-25'
+method: probed
+source: >-
+  Live probes of the RFC 8615 /.well-known/ discovery surface across every
+  Suncorp Group corporate, brand and gated-portal host, 2026-07-25.
+result: none
+note: >-
+  NO well-known discovery document is published anywhere in the Suncorp Group
+  estate. Eight hosts were probed for six documents each (48 requests) and not one
+  returned a parseable document. This is recorded as negative evidence so later
+  enrichment rounds do not re-probe blind; NO WellKnown, APICatalog or SecurityTxt
+  pointer is wired into apis.yml, because no such document exists.
+waf_caveat: >-
+  www.suncorpgroup.com.au and suncorpgroup.com.au sit behind an Imperva Incapsula
+  WAF that returns HTTP 200 with a 212-byte noindex/robots HTML shell for EVERY
+  path, including paths that do not exist. A 200 from those two hosts is NOT
+  evidence of a document. www.aainsurance.co.nz behaves the same way with HTTP 202
+  and an empty body from CloudFront. Both are marked body_is_challenge: true.
+hosts:
+- host: https://www.suncorpgroup.com.au
+  role: corporate
+  documents:
+  - {path: /.well-known/security.txt, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /security.txt, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/openid-configuration, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/oauth-authorization-server, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/api-catalog, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/ai-plugin.json, status: 200, parsed: false, body_is_challenge: true}
+- host: https://suncorpgroup.com.au
+  role: corporate-apex
+  documents:
+  - {path: /.well-known/security.txt, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /security.txt, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/openid-configuration, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/oauth-authorization-server, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/api-catalog, status: 200, parsed: false, body_is_challenge: true}
+  - {path: /.well-known/ai-plugin.json, status: 200, parsed: false, body_is_challenge: true}
+- host: https://www.suncorp.com.au
+  role: brand
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.vero.com.au
+  role: brand
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.aami.com.au
+  role: brand
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.gio.com.au
+  role: brand
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://online.verocentral.com.au
+  role: gated-idp
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404, note: 'Apache Tomcat 404 — the VeroEdge identity provider publishes no anonymous OIDC discovery document'}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://api.suncorp.com.au
+  role: vestigial-api-host
+  documents:
+  - {path: /.well-known/security.txt, status: 404, note: 'empty body'}
+  - {path: /security.txt, status: 404, note: 'empty body'}
+  - {path: /.well-known/openid-configuration, status: 404, note: 'empty body'}
+  - {path: /.well-known/oauth-authorization-server, status: 404, note: 'empty body'}
+  - {path: /.well-known/api-catalog, status: 404, note: 'empty body'}
+  - {path: /.well-known/ai-plugin.json, status: 404, note: 'empty body'}
+also_probed:
+- host: https://EngineersPIandStrataPortal.vero.com.au
+  path: /.well-known/openid-configuration
+  status: 200
+  parsed: false
+  note: >-
+    Returns the Uniwriter Angular single-page-app HTML shell, not an OIDC
+    discovery document. Carried forward from the 2026-07-25 review.
+summary:
+  hosts_probed: 8
+  documents_probed: 48
+  documents_found: 0
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false

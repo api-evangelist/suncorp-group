@@ -1,0 +1,63 @@
+generated: '2026-07-25'
+method: searched
+source: >-
+  https://www.vero.com.au/terms-sid.html, https://www.vero.com.au/broker/tools.html,
+  https://www.vero.com.au/secure/veroedge.html and live 2026-07-25 probes of
+  online.verocentral.com.au. No OpenAPI exists to derive from —
+  derive-authentication.py has no spec input for this provider.
+public_api: false
+summary:
+  types: []
+  api_key_in: []
+  oauth2_flows: []
+  machine_to_machine_auth_documented: false
+  reading: >-
+    There is no public API and therefore no public API authentication scheme. No
+    API keys, no client-credentials flow, no mTLS onboarding and no scope model
+    are documented anywhere on Suncorp Group or brand properties. The only access
+    model Suncorp publishes is a human, browser-based federated single sign-on to
+    gated broker portals, granted person-by-person by a Vero representative.
+schemes: []
+gated_access_model:
+- name: Access Single ID (SID)
+  kind: browser-federated-sso
+  audience: brokers and intermediaries
+  entry_point: https://www.vero.com.au/secure/veroedge.html
+  identity_provider: https://online.verocentral.com.au/idp/channel/vero-portal
+  identity_provider_status: 200
+  presentation: HTML login form titled "Vero Intermediary Portal"
+  terms: https://www.vero.com.au/terms-sid.html
+  provisioning: >-
+    Granted by a dedicated Vero Representative per the Vero broker tools page —
+    a human onboarding path, not self-serve registration.
+  discovery_documents:
+    openid_configuration: 404
+    oauth_authorization_server: 404
+  capabilities_behind_the_wall:
+  - SME Package and Commercial Motor quoting with real-time response
+  - New business bind and full policy lifecycle transactions
+  - Renewals including Workers Compensation
+  - Electronic document access (schedules, new business, renewals)
+- name: Engineers PI & Strata Portal (Uniwriter)
+  kind: third-party-underwriting-application
+  audience: brokers
+  entry_point: https://EngineersPIandStrataPortal.vero.com.au/
+  entry_point_status: 200
+  presentation: Angular single-page application
+  discovery_documents:
+    openid_configuration: >-
+      200 but serves the SPA HTML shell, not a discovery document — does not parse
+      as JSON
+machine_channels:
+  note: >-
+    The primary machine-to-machine path is a Broker Management System connection
+    over Australia's commercial broker trading networks (Steadfast SCTP, Sunrise
+    Exchange). Credentials and message formats for those channels are commercial
+    and are not published by Suncorp — see
+    conformance/suncorp-group-conformance.yml.
+  publicly_documented: false
+pointer_note: >-
+  Deliberately NOT wired as `type: Authentication` in apis.yml. That scoring check
+  reads "API authentication is documented," and Suncorp Group documents no API
+  authentication — only a human portal login. Wiring the pointer would award
+  points for something that does not exist.

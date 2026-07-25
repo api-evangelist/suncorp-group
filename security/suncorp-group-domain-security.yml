@@ -1,0 +1,220 @@
+generated: '2026-07-25'
+method: probed
+source: >-
+  Live DNS (dig DS/CAA/TXT), TLS (openssl s_client) and HTTP HEAD probes of every
+  Suncorp Group corporate, brand and gated-portal host reachable on 2026-07-25.
+  Extends the mechanical single-host probe to the full twelve-brand estate.
+note: >-
+  Suncorp Group publishes no public API, so there is no API host to probe. The
+  hosts below are the corporate site, the Australian and New Zealand insurance
+  brand sites, and the gated broker identity-provider host. Absence of a record
+  (no DNSSEC, no CAA, no HSTS) is recorded as observed fact.
+hosts:
+- host: www.suncorpgroup.com.au
+  role: corporate
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Jan 28 23:59:59 2027 GMT'
+  hsts: false
+  hsts_max_age: null
+  note: >-
+    Corporate site. The ONLY host in the estate with no Strict-Transport-Security
+    header. Fronted by an Imperva Incapsula WAF that answers scripted path
+    requests with a challenge/noindex shell, so HTTP status codes from this host
+    are not evidence of a real page.
+- host: www.suncorp.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Dec  2 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 15768000
+  hsts_include_subdomains: true
+  note: >-
+    Post-divestment this host serves Suncorp Bank (sold to ANZ 31 July 2024)
+    content alongside the Suncorp insurance brand; /security is a consumer online
+    safety page, not a vulnerability disclosure policy.
+- host: www.vero.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Nov 25 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 15768000
+  hsts_include_subdomains: true
+- host: www.aami.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Nov 25 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 31557600
+  hsts_include_subdomains: false
+- host: www.gio.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Nov 27 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: www.apia.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Nov 25 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 15768000
+  hsts_include_subdomains: true
+- host: www.shannons.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Sep 21 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: www.bingle.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Nov 25 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 31557600
+  hsts_include_subdomains: false
+  note: >-
+    developer.bingle.com.au and api.bingle.com.au remain as dangling CNAMEs to
+    decommissioned AWS ap-southeast-2 load balancers; neither target resolves.
+- host: www.terrischeer.com.au
+  role: brand
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Dec  4 23:59:59 2026 GMT'
+  hsts: true
+  hsts_max_age: 31557600
+  hsts_include_subdomains: false
+- host: www.vero.co.nz
+  role: brand-nz
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Jan  7 23:59:59 2027 GMT'
+  hsts: true
+  hsts_max_age: 15768000
+  hsts_include_subdomains: true
+- host: www.aainsurance.co.nz
+  role: brand-nz
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Jan 27 23:59:59 2027 GMT'
+  hsts: false
+  hsts_max_age: null
+  note: >-
+    Served from CloudFront and answers every path with HTTP 202 and an empty body
+    (bot challenge), so status codes from this host are not evidence of a page.
+- host: online.verocentral.com.au
+  role: gated-idp
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: 'Sep  3 23:59:59 2026 GMT'
+  hsts: false
+  hsts_max_age: null
+  note: >-
+    Identity provider behind the VeroEdge / Vero Intermediary Portal broker login
+    (Apache Tomcat). No anonymous OIDC or OAuth discovery document is served.
+domains:
+- domain: suncorpgroup.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: suncorp.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: vero.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: aami.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: gio.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: apia.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: shannons.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: bingle.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: terrischeer.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: vero.co.nz
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: aainsurance.co.nz
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: verocentral.com.au
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+summary:
+  hosts_probed: 12
+  domains_probed: 12
+  https_everywhere: true
+  tls13_everywhere: true
+  hsts_present: 9
+  hsts_absent: 3
+  hsts_absent_hosts:
+  - www.suncorpgroup.com.au
+  - www.aainsurance.co.nz
+  - online.verocentral.com.au
+  dnssec_signed: 0
+  caa_published: 0
+  spf_published: 12
+  dmarc_published: 12
+  dmarc_policy_reject: 12
+  reading: >-
+    Uniform and disciplined at the email layer — every one of the twelve
+    registrable domains publishes SPF and a DMARC policy of p=reject, which is
+    stronger than most of the Australian insurance cohort. Uniformly absent at the
+    DNS-integrity layer — zero DNSSEC signing and zero CAA records anywhere in the
+    estate. Transport is TLS 1.3 on every host, but HSTS is missing on the
+    corporate domain and on the broker identity-provider host, which are the two
+    places it would matter most.
