@@ -1,0 +1,273 @@
+aid: suncorp-group
+name: Suncorp Group
+review:
+  question: Does Suncorp Group publish a real, self-serve public developer portal and any downloadable API definitions for its insurance products?
+  answer: false
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: Australia
+  tier: carrier-pc
+  developerPortalConfirmed: false
+  gated: true
+  openapiHarvested: false
+  specsCount: 0
+findings:
+  summary: |
+    Suncorp Group has NO public API surface. It publishes no first-party
+    developer portal, no API reference, and no downloadable OpenAPI or Swagger
+    definition — on the corporate domain suncorpgroup.com.au or on any of its
+    insurance brand domains. This is the honest, expected outcome for an
+    Australian personal-and-commercial-lines carrier: Australia has the legal
+    machinery for open insurance and no live obligation, so nothing forces a
+    public product or quoting endpoint into existence.
+
+    Every candidate developer host was probed on 2026-07-25 and none exist:
+    developer.suncorpgroup.com.au, developers.suncorpgroup.com.au,
+    docs.suncorpgroup.com.au and api.suncorpgroup.com.au all fail DNS
+    resolution (NXDOMAIN), as do developer.suncorp.com.au,
+    developers.suncorp.com.au, docs.suncorp.com.au, developer.vero.com.au,
+    api.vero.com.au and docs.vero.com.au. On the brand sites the obvious paths
+    are hard 404s: https://www.vero.com.au/developers (404),
+    https://www.vero.com.au/api (404), https://www.suncorp.com.au/developers
+    (404), https://www.suncorp.com.au/api (404).
+
+    The corporate site www.suncorpgroup.com.au sits behind an Imperva Incapsula
+    WAF that answers every scripted path request with an HTTP 200 challenge
+    page, so status codes from that host are NOT evidence of a real page. Its
+    robots.txt and sitemap.xml are served directly, however, and the sitemap
+    was harvested as ground truth: 803 URLs, ZERO of them a developer, API,
+    api-docs, developer-portal or integrations path. The four brand sitemaps
+    were harvested the same way — www.suncorp.com.au (868 URLs),
+    www.gio.com.au (504), www.aami.com.au (416), www.vero.com.au (219), 2,007
+    URLs in total — again with zero developer, API or CDR paths.
+
+    Two vestigial DNS records are worth recording because they are the only
+    trace of a developer-shaped host anywhere in the estate:
+    developer.bingle.com.au and api.bingle.com.au (Bingle is Suncorp's direct
+    online motor brand) are dangling CNAMEs pointing at AWS ap-southeast-2
+    elastic load balancers — developer-881373579.ap-southeast-2.elb.amazonaws.com
+    and api-526778207.ap-southeast-2.elb.amazonaws.com — that themselves no
+    longer resolve. There is no live host behind either name.
+
+    The only real machine-to-machine integration surface is intermediated and
+    gated. VeroEdge (the Vero Intermediary Portal) is linked from
+    https://www.vero.com.au/secure/veroedge.html (HTTP 200), which redirects to
+    an identity-provider login form at
+    https://online.verocentral.com.au/idp/channel/vero-portal (HTTP 200, title
+    "Vero Intermediary Portal"). Access is governed by Suncorp's "Access Single
+    ID (SID)" terms (https://www.vero.com.au/terms-sid.html) and, per the
+    broker tools page, is granted by a "dedicated Vero Representative" — a
+    login wall, not a developer portal. A second gated surface,
+    https://EngineersPIandStrataPortal.vero.com.au/ (HTTP 200), is a
+    third-party "Uniwriter" underwriting application for Engineers PI and
+    Strata.
+
+    Suncorp's own broker documentation states the real integration path
+    plainly. From https://www.vero.com.au/broker/tools.html: "VeroEdge Portal
+    for SME Packages and Commercial Motor is available for brokers who don't
+    access Vero Edge through their own Broker Management System." In other
+    words the portal is the fallback; the primary channel is a BMS-to-insurer
+    connection over Australia's broker trading networks. Suncorp Group's own
+    newsroom confirms which networks: the 22 June 2026 release announcing
+    Vero's intermediated residential strata product says the product is
+    "initially available via the Steadfast SCTP platform and Vero Underwriting
+    portal, supporting faster, more efficient broker workflows, with future
+    availability across Sunrise to launch shortly thereafter."
+
+    No public GitHub presence of substance: github.com/suncorp has 0 public
+    repositories and github.com/SuncorpGroup has a single repository
+    (ScalaTest) last updated in 2015. No llms.txt on any property (404 on
+    suncorpgroup.com.au, suncorp.com.au, vero.com.au). No public Postman
+    workspace or collection was found. No GraphQL, gRPC, AsyncAPI, event
+    catalog or webhook documentation exists.
+  acordPosture: |
+    No ACORD reference found. Searches of Suncorp Group and brand properties
+    (corporate site content, broker tools, sitemaps) surfaced no mention of
+    ACORD, AL3, ACORD XML, ACORD certification or NGDS. This is consistent
+    with the Australian market, where the broker-to-insurer transaction seam
+    is not ACORD/IVANS but the local trading networks: the Steadfast Client
+    Trading Platform (SCTP) and Sunrise Exchange, plus direct Broker
+    Management System integration — all three of which Suncorp/Vero names in
+    its own material. Recorded as: "no ACORD reference found; Australian
+    broker integration runs on Steadfast SCTP, Sunrise Exchange and direct
+    Broker Management System connections."
+  insuranceVerbs:
+    quote: gated — VeroEdge generates SME Package and Commercial Motor quotes with real-time response, and Equipment Breakdown / Engineers PI quoting runs in separate gated portals. Broker-facing only; no public quoting API.
+    bind: gated — VeroEdge supports new business and "full policy lifecycle transactions" for brokers. No public API.
+    issue: gated — policy management, renewals (including Workers Compensation) and electronic document access (schedules, new business, renewals) are inside VeroEdge. No public API.
+    fnol: gated — Workers Compensation claims reporting is listed among the broker tools; consumer claims lodgement across AAMI, GIO, Suncorp and Vero is web/app self-service only. No public FNOL API.
+    audience: broker/intermediary and agent only. Nothing consumer-facing or partner self-serve is exposed as an API.
+  authModel: |
+    No public API, therefore no public authentication scheme. The gated broker
+    surface uses browser-based federated single sign-on: VeroEdge redirects to
+    an identity provider endpoint at
+    https://online.verocentral.com.au/idp/channel/vero-portal presenting an
+    HTML login form, under Suncorp's "Access Single ID (SID)" identity
+    program. No anonymous OIDC/OAuth discovery document is published:
+    https://online.verocentral.com.au/.well-known/openid-configuration returns
+    HTTP 404, https://www.vero.com.au/.well-known/openid-configuration returns
+    HTTP 404, and
+    https://EngineersPIandStrataPortal.vero.com.au/.well-known/openid-configuration
+    returns HTTP 200 but serves the Uniwriter single-page-app HTML shell, not
+    a discovery document. No API keys, no client-credentials flow, no mTLS
+    onboarding is documented publicly.
+  regulatoryPosture: |
+    Suncorp Group is prudentially supervised by APRA and conduct-regulated by
+    ASIC. Australia's Consumer Data Right, which already opened banking and
+    energy, was designated to extend to general insurance and was then
+    deferred and de-prioritised, so there is no live open-insurance
+    obligation and no mandated public Product Reference Data endpoint for a
+    general insurer. This is the sharp contrast with the sibling record
+    api-evangelist/suncorp-bank, where the CDR banking mandate produced a
+    live, unauthenticated public PRD API. Private health insurance is a
+    separate regulated market in Australia and is not a Suncorp line.
+  transports:
+  - protocol: HTTPS (web)
+    scheme: https
+    baseURL: https://www.suncorpgroup.com.au/
+    documented: true
+    note: Corporate marketing, investor and newsroom site behind an Imperva Incapsula WAF. No API.
+  - protocol: HTTPS (gated web portal)
+    scheme: https
+    baseURL: https://online.verocentral.com.au/idp/channel/vero-portal
+    documented: true
+    note: VeroEdge / Vero Intermediary Portal login. Broker-gated, HTML form SSO. Not an API.
+  - protocol: REST
+    scheme: https
+    documented: false
+    note: No public REST API is documented on any Suncorp Group or brand property.
+  - protocol: GraphQL
+    documented: false
+    note: No /graphql surface found on any Suncorp Group or brand domain.
+  - protocol: gRPC
+    documented: false
+    note: No published .proto files.
+  - protocol: Webhooks/AsyncAPI
+    documented: false
+    note: No event catalog, webhook documentation or AsyncAPI definition exists. Absence is the finding.
+  probeResults:
+  - url: https://developer.suncorpgroup.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN — host does not exist.
+  - url: https://developers.suncorpgroup.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN — host does not exist.
+  - url: https://docs.suncorpgroup.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN — host does not exist.
+  - url: https://api.suncorpgroup.com.au/
+    httpStatus: 0
+    note: DNS NXDOMAIN — host does not exist.
+  - url: https://www.suncorpgroup.com.au/developers
+    httpStatus: 200
+    note: NOT a real page. Imperva Incapsula WAF challenge HTML (1,048 bytes, "Request unsuccessful. Incapsula incident ID"). Every path on this host answers 200 the same way.
+  - url: https://www.suncorpgroup.com.au/robots.txt
+    httpStatus: 200
+    note: Served directly, 77 bytes, allows all, points to sitemap.xml.
+  - url: https://www.suncorpgroup.com.au/sitemap.xml
+    httpStatus: 200
+    note: Served directly. 803 URLs. Zero developer/api/api-docs/developer-portal/integrations paths. Top sections are news (589), investors (104), corporate-responsibility (29), about (29), careers (17).
+  - url: https://www.suncorp.com.au/developers
+    httpStatus: 404
+    note: Hard 404, "Page not found".
+  - url: https://www.suncorp.com.au/api
+    httpStatus: 404
+    note: Hard 404.
+  - url: https://www.suncorp.com.au/sitemap.xml
+    httpStatus: 200
+    note: 868 URLs. No developer/api/CDR paths.
+  - url: https://www.vero.com.au/developers
+    httpStatus: 404
+    note: Hard 404, "Page Not Found".
+  - url: https://www.vero.com.au/api
+    httpStatus: 404
+    note: Hard 404.
+  - url: https://www.vero.com.au/sitemap.xml
+    httpStatus: 200
+    note: 219 URLs. No developer/api paths.
+  - url: https://www.gio.com.au/sitemap.xml
+    httpStatus: 200
+    note: 504 URLs. No developer/api paths.
+  - url: https://www.aami.com.au/sitemap.xml
+    httpStatus: 200
+    note: 416 URLs. No developer/api paths.
+  - url: https://www.vero.com.au/broker/tools.html
+    httpStatus: 200
+    note: Broker Tools page. Names VeroEdge, Equipment Breakdown Quotes, Engineers PI Quotes, Workers Compensation Claims Reporting. States access is granted via a dedicated Vero Representative and that VeroEdge is the fallback for brokers not connected through their own Broker Management System.
+  - url: https://www.vero.com.au/secure/veroedge.html
+    httpStatus: 200
+    note: Redirects to https://online.verocentral.com.au/idp/channel/vero-portal — HTML login form titled "Vero Intermediary Portal". Login wall, not a developer portal.
+  - url: https://online.verocentral.com.au/.well-known/openid-configuration
+    httpStatus: 404
+    note: No anonymous OIDC discovery document (Tomcat 404).
+  - url: https://EngineersPIandStrataPortal.vero.com.au/
+    httpStatus: 200
+    note: Third-party "Uniwriter" Angular single-page underwriting application for Engineers PI and Strata. Gated.
+  - url: https://EngineersPIandStrataPortal.vero.com.au/.well-known/openid-configuration
+    httpStatus: 200
+    note: Returns the SPA HTML shell, NOT an OIDC discovery document. Does not parse as JSON.
+  - url: https://www.suncorp.com.au/openapi.json
+    httpStatus: 404
+    note: No spec. Same 404 for /swagger.json, /openapi.yaml, /api-docs.
+  - url: https://www.vero.com.au/openapi.json
+    httpStatus: 404
+    note: No spec. Same 404 for /swagger.json, /openapi.yaml, /api-docs.
+  - url: https://www.aami.com.au/openapi.json
+    httpStatus: 404
+    note: No spec. Same 404 for /swagger.json, /openapi.yaml, /api-docs.
+  - url: https://www.gio.com.au/openapi.json
+    httpStatus: 404
+    note: No spec. Same 404 for /swagger.json, /openapi.yaml, /api-docs.
+  - url: https://api.suncorp.com.au/
+    httpStatus: 404
+    note: Host resolves (Incapsula) but returns 404 with an empty body. No API served.
+  - url: https://developer.bingle.com.au/
+    httpStatus: 0
+    note: Dangling CNAME to developer-881373579.ap-southeast-2.elb.amazonaws.com, which no longer resolves. No live host.
+  - url: https://api.bingle.com.au/
+    httpStatus: 0
+    note: Dangling CNAME to api-526778207.ap-southeast-2.elb.amazonaws.com, which no longer resolves. No live host.
+  - url: https://api.github.com/orgs/suncorp
+    httpStatus: 200
+    note: GitHub org "suncorp" exists with 0 public repositories.
+  - url: https://api.github.com/orgs/SuncorpGroup
+    httpStatus: 200
+    note: GitHub org "SuncorpGroup" has 1 public repository (ScalaTest), last updated 2015-11-09.
+  - url: https://www.suncorpgroup.com.au/llms.txt
+    httpStatus: 404
+    note: No llms.txt. Same 404 on www.suncorp.com.au and www.vero.com.au.
+sources:
+- url: https://www.suncorpgroup.com.au/about/brands
+  type: Documentation
+  note: Official brand portfolio. Australia — AAMI, Apia, Bingle, CIL, GIO, Essentials by AAI, Shannons, Suncorp, Terri Scheer, Vero. New Zealand — Vero, AA Insurance.
+- url: https://www.suncorpgroup.com.au/sitemap.xml
+  type: Sitemap
+  note: 803-URL ground truth used to establish the absence of any developer or API surface on the corporate domain.
+- url: https://www.vero.com.au/broker/tools.html
+  type: Documentation
+  note: 'Broker toolkit. Verbatim: "VeroEdge Portal for SME Packages and Commercial Motor is available for brokers who don''t access Vero Edge through their own Broker Management System."'
+- url: https://www.vero.com.au/secure/veroedge.html
+  type: PartnerPortal
+  note: VeroEdge entry point; redirects to the Vero Intermediary Portal login.
+- url: https://www.vero.com.au/terms-sid.html
+  type: TermsOfService
+  note: Access Single ID (SID) Terms of Use governing broker portal access.
+- url: https://www.suncorpgroup.com.au/news/news/vero-residential-strata-product
+  type: Blog
+  note: '22 June 2026 release. Verbatim: "initially available via the Steadfast SCTP platform and Vero Underwriting portal, supporting faster, more efficient broker workflows, with future availability across Sunrise to launch shortly thereafter."'
+- url: https://raw.githubusercontent.com/api-evangelist/suncorp-bank/refs/heads/main/apis.yml
+  type: APIsJSON
+  note: Sibling record. Suncorp Bank was sold to ANZ on 31 July 2024 and, as a CDR data holder, does expose a live public Product Reference Data API — the contrast that makes Suncorp Group's absence legible.
+actions:
+  openapiPath: null
+  openapiProvenance: none — no OpenAPI or Swagger definition is published by Suncorp Group or any of its brands
+  apisYmlUpdated: true
+  reason: |
+    Recorded as an honest stub. apis[] is intentionally EMPTY because Suncorp
+    Group publishes no real, documented public API. The openapi/ directory was
+    omitted entirely because nothing real was found to save. The measurable
+    finding for the insurance sector data set is the absence itself: a
+    top-tier Australian P&C carrier with twelve consumer and commercial
+    brands, whose only machine-readable integration path is a broker
+    management system connection over Steadfast SCTP and Sunrise Exchange,
+    behind a representative-granted login.

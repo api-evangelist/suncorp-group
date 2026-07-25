@@ -1,0 +1,79 @@
+aid: suncorp-group
+url: https://raw.githubusercontent.com/api-evangelist/suncorp-group/refs/heads/main/apis.yml
+name: Suncorp Group
+kind: company
+description: >-
+  Suncorp Group Limited (ASX: SUN) is an Australian general insurance group
+  headquartered in Brisbane, Queensland, serving customers across Australia and
+  New Zealand. Following the sale of Suncorp Bank to ANZ on 31 July 2024 it
+  operates as a pure-play insurer, underwriting personal lines (motor, home and
+  contents, caravan, landlord) and commercial lines (SME packages, commercial
+  motor and motor fleet, property/ISR, liability, professional and financial
+  risks, workers' compensation, surety, and specialty lines including
+  residential strata and equipment breakdown) through a portfolio of brands: in
+  Australia AAMI, Apia, Bingle, CIL, GIO, Essentials by AAI, Shannons, Suncorp,
+  Terri Scheer and Vero, and in New Zealand Vero and AA Insurance. Its API
+  posture is partner-gated and there is no public API. As of a 2026-07-25
+  review, Suncorp Group publishes no first-party developer portal, no API
+  reference, and no downloadable OpenAPI/Swagger definition on
+  suncorpgroup.com.au or on any brand domain: the developer/developers/docs/api
+  subdomains of suncorpgroup.com.au do not resolve, /developers and /api return
+  HTTP 404 on the brand sites, and the corporate sitemap (803 URLs) plus the
+  AAMI, GIO, Suncorp and Vero brand sitemaps (2,007 URLs) contain zero
+  developer, API or integration paths. The only machine-to-machine integration
+  surface is intermediated and behind a login: the VeroEdge / Vero Intermediary
+  Portal for brokers (Access Single ID), a third-party Uniwriter underwriting
+  portal for Engineers PI and Strata, and distribution through Australian
+  broker trading networks — the Steadfast Client Trading Platform (SCTP),
+  Sunrise Exchange, and direct Broker Management System connections. Australia
+  has no live open-insurance obligation: the Consumer Data Right that opened
+  banking and energy was never switched on for general insurance, so unlike
+  Suncorp Bank there is no mandated public product-reference-data endpoint
+  here. No ACORD, AL3 or NGDS reference was found anywhere on Suncorp Group or
+  brand properties.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Insurance
+- Australia
+- Property and Casualty
+- General Insurance
+- Carrier
+- Personal Lines
+- Commercial Lines
+- Claims
+- Underwriting
+- Broker
+- Partner Gated
+- New Zealand
+created: '2026-07-25'
+modified: '2026-07-25'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.suncorpgroup.com.au/
+- type: About
+  url: https://www.suncorpgroup.com.au/about
+- type: Brands
+  url: https://www.suncorpgroup.com.au/about/brands
+- type: Blog
+  url: https://www.suncorpgroup.com.au/news/news
+- type: InvestorRelations
+  url: https://www.suncorpgroup.com.au/investors
+- type: PartnerPortal
+  url: https://www.vero.com.au/secure/veroedge.html
+- type: Support
+  url: https://www.suncorpgroup.com.au/contact
+- type: PrivacyPolicy
+  url: https://www.suncorpgroup.com.au/about/corporate-governance/privacy-policy
+- type: TermsOfService
+  url: https://www.suncorpgroup.com.au/disclaimer
+- type: Governance
+  url: https://www.suncorpgroup.com.au/about/corporate-governance
+- type: GitHubOrganization
+  url: https://github.com/SuncorpGroup
+- type: LinkedIn
+  url: https://www.linkedin.com/company/suncorp/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
