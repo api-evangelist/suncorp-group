@@ -47,7 +47,10 @@ accessModel:
   onboarding: open
   trial: false
   try_now: false
-  public: true
+  public: false
+  gated: partner
+  gated_source:
+  - tag:Partner Gated
   label: Open access
   confidence: low
   source:
@@ -66,7 +69,6 @@ tags:
 - Commercial Lines
 - Claims
 - Underwriting
-- Partner Gated
 - New Zealand
 tags_raw:
 - Insurance
@@ -78,7 +80,6 @@ tags_raw:
 - Commercial Lines
 - Claims
 - Underwriting
-- Partner Gated
 - New Zealand
 created: '2026-07-25'
 modified: '2026-07-25'
@@ -120,3 +121,4 @@ maintainers:
   email: kin@apievangelist.com
 x-tags-removed:
 - Brokers
+- Partner Gated
