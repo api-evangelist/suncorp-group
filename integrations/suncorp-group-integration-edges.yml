@@ -1,0 +1,44 @@
+generated: '2026-10-20'
+method: searched
+source:
+- review.yml (2026-07-25 review), which quotes Suncorp's own pages verbatim. Re-fetch of the news release on 2026-10-20
+  returned an Incapsula "Request unsuccessful" page (HTTP 200, 82 chars) to both plain and rendered fetches, so
+  the quotes below come from the earlier review rather than a fresh read.
+- https://zapier.com/apps/suncorp-group/integrations
+- https://n8n.io/integrations/suncorp-group/
+- https://composio.dev/toolkits/suncorp-group
+- https://monid.ai/tools/suncorp-group
+checked:
+- https://www.suncorpgroup.com.au/news/news/vero-residential-strata-product
+- https://www.vero.com.au/broker/tools.html
+- https://zapier.com/apps/suncorp/integrations
+- https://www.make.com/en/integrations/suncorp
+- https://n8n.io/integrations/suncorp
+- https://composio.dev/toolkits/suncorp-group
+- https://monid.ai/tools/suncorp-group
+- https://n8n.io/integrations/suncorp-group/
+- https://zapier.com/apps/suncorp-group/integrations
+summary: No marketplace listings and no public contract. Suncorp/Vero's own material names the Australian broker
+  trading networks it distributes commercial products through.
+marketplace_apps: []
+edges:
+- partner_name: Steadfast Client Trading Platform (SCTP)
+  partner: steadfast-group
+  type: claimed
+  direction: unknown
+  evidence: https://www.suncorpgroup.com.au/news/news/vero-residential-strata-product
+  note: 'Verbatim (22 June 2026 release, per review.yml): "initially available via the Steadfast SCTP platform and
+    Vero Underwriting portal, supporting faster, more efficient broker workflows, with future availability across
+    Sunrise to launch shortly thereafter."'
+- partner_name: Sunrise Exchange
+  partner: null
+  type: claimed
+  direction: unknown
+  evidence: https://www.suncorpgroup.com.au/news/news/vero-residential-strata-product
+  note: Named in the same release as "future availability across Sunrise". Catalog slug "sunrise" is not verified
+    as this broker exchange, so partner is null.
+templates: []
+skips:
+- label: Steadfast SCTP workflow
+  cause: catalog
+  why: Neither Suncorp Group nor Steadfast Group holds an OpenAPI in the catalog; no Arazzo can be authored.

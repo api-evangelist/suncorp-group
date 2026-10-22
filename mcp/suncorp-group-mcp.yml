@@ -1,0 +1,20 @@
+name: Suncorp Group MCP server
+type: MCPServer
+generated: '2026-10-20'
+method: none
+source:
+- https://www.suncorpgroup.com.au/llms.txt (HTTP 404, 2026-10-20)
+- https://www.vero.com.au/llms.txt (HTTP 404, 2026-10-20)
+- https://www.suncorp.com.au/llms.txt (HTTP 404, 2026-10-20)
+- preflight contract_discovery 2026-10-20 (mcp: absent on www.suncorpgroup.com.au, www.vero.com.au)
+- 'web search "Suncorp MCP server Model Context Protocol" (2026-10-20): no Suncorp result'
+status: none
+description: >-
+  Suncorp Group publishes no MCP server, hosted or local, and no public API.
+  There is no OpenAPI definition in this repo to derive a candidate tool list from,
+  so no candidate tools are recorded.
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+tools: []

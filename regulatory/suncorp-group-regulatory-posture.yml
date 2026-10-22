@@ -1,0 +1,64 @@
+generated: '2026-10-20'
+method: searched
+probe: true
+source: https://www.suncorp.com.au/about-us/legal/privacy.html
+notes: >-
+  The Suncorp Group Privacy Policy itself (https://www.suncorpgroup.com.au/about/corporate-governance/privacy-policy)
+  returned an Imperva/Incapsula "Request unsuccessful" page (HTTP 200, 1,046 bytes) to a plain GET and rendered
+  to 0 characters in a headless browser on 2026-10-20, so it could not be read. The signals below come from the
+  Suncorp-branded privacy hub on www.suncorp.com.au, the AAI Limited (trading as Suncorp Insurance) privacy
+  statement PDF it links to, and the www.suncorp.com.au accessibility page. Those statements refer to the
+  Group Privacy Policy for the detail (country list, access procedure, complaints handling).
+signals:
+  data_subject_request:
+    url: https://www.suncorp.com.au/content/dam/suncorp/corporate/documents/legal/privacy/general-privacy-statement.pdf
+    section: How to access and correct your personal information or make a complaint
+    rights_named: [access, correction, complaint about a breach of the Australian Privacy Principles]
+    evidence:
+    - source: https://www.suncorp.com.au/content/dam/suncorp/corporate/documents/legal/privacy/general-privacy-statement.pdf
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        You have the right to access and correct your personal information held by us and you can find
+        information about how to do this in the Suncorp Group Privacy Policy which can be accessed at
+        www.suncorp.com.au/privacy.
+    - source: https://www.suncorp.com.au/content/dam/suncorp/corporate/documents/legal/privacy/general-privacy-statement.pdf
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        The Policy also includes information about how you can complain about a breach of the Australian
+        Privacy Principles and how we’ll deal with such a complaint.
+    note: >-
+      Access and correction rights under the Australian Privacy Act are stated. The procedure, channel and
+      timeframe are deferred to the Group Privacy Policy, which was not readable. No deletion or portability right is named.
+  data_residency:
+    url: https://www.suncorp.com.au/content/dam/suncorp/corporate/documents/legal/privacy/general-privacy-statement.pdf
+    section: Overseas Disclosure
+    evidence:
+    - source: https://www.suncorp.com.au/content/dam/suncorp/corporate/documents/legal/privacy/general-privacy-statement.pdf
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        The countries we usually disclose your personal information to include those countries where our
+        operations are performed, or our insurance and business partners conduct their business. The
+        countries involved will depend on the nature of your dealing with us.
+    - source: https://www.suncorp.com.au/about-us/legal/privacy.html
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: Group Privacy Policy – Suncorp Group Privacy Policy (including list of countries)
+    note: >-
+      This is a disclosure of cross-border transfer (APP 8), not a residency commitment. Personal information
+      may go overseas, and the country list is published in the Group Privacy Policy, which was not readable.
+  accessibility_conformance:
+    url: https://www.suncorp.com.au/about-us/legal/accessibility.html
+    standard: WCAG 2.0 Level AA
+    evidence:
+    - source: https://www.suncorp.com.au/about-us/legal/accessibility.html
+      http_status: 200
+      fetched: '2026-10-20'
+      quote: >-
+        Suncorp is committed to ensuring our website is accessible to everyone. Therefore, our goal is to
+        comply with the W3C / WCAG 2.0 Level AA guidelines for website accessibility.
+    note: >-
+      This states a goal of WCAG 2.0 AA, not a claim of conformance. It covers the www.suncorp.com.au website
+      and says nothing about APIs or developer surfaces.

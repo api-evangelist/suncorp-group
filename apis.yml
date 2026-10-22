@@ -1,7 +1,11 @@
 aid: suncorp-group
+
 url: https://raw.githubusercontent.com/api-evangelist/suncorp-group/refs/heads/main/apis.yml
+
 name: Suncorp Group
+
 kind: company
+
 description: >-
   Suncorp Group Limited (ASX: SUN) is an Australian general insurance group
   headquartered in Brisbane, Queensland, serving customers across Australia and
@@ -31,6 +35,7 @@ description: >-
   Suncorp Bank there is no mandated public product-reference-data endpoint
   here. No ACORD, AL3 or NGDS reference was found anywhere on Suncorp Group or
   brand properties.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -42,6 +47,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: unknown
   onboarding: open
@@ -58,7 +64,9 @@ accessModel:
   - security
   generated: '2026-09-02'
   method: derived
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+
+image: https://www.suncorp.com.au/content/dam/suncorp/corporate/images/logos/Suncorp_New_Logo.png
+
 tags:
 - Insurance
 - Australia
@@ -70,6 +78,7 @@ tags:
 - Claims
 - Underwriting
 - New Zealand
+
 tags_raw:
 - Insurance
 - Australia
@@ -81,17 +90,28 @@ tags_raw:
 - Claims
 - Underwriting
 - New Zealand
+
 created: '2026-07-25'
-modified: '2026-07-25'
+
+modified: '2026-10-20'
+
 specificationVersion: '0.23'
-apis: []
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
+- type: Hosts
+  url: hosts/suncorp-group-hosts.yml
+- type: IntegrationEdges
+  url: integrations/suncorp-group-integration-edges.yml
+- type: Vendors
+  url: vendors/suncorp-group-vendors.yml
 - type: DomainSecurity
   url: security/suncorp-group-domain-security.yml
 - type: Conformance
   url: conformance/suncorp-group-conformance.yml
-- type: LLMsTxt
-  url: llms/suncorp-group-llms.txt
 - type: Website
   url: https://www.suncorpgroup.com.au/
 - type: About
@@ -112,13 +132,50 @@ common:
   url: https://www.suncorpgroup.com.au/disclaimer
 - type: Governance
   url: https://www.suncorpgroup.com.au/about/corporate-governance
-- type: GitHubOrganization
-  url: https://github.com/SuncorpGroup
 - type: LinkedIn
   url: https://www.linkedin.com/company/suncorp/
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
+apis: []
+
 x-tags-removed:
 - Brokers
 - Partner Gated
+
+x-coverage:
+  state: covered
+  reason: identity-verified
+  detail: >-
+    2026-10-20 identity pass. www.suncorpgroup.com.au answers a plain GET with a
+    JavaScript shell and a headless render hits an hCaptcha check on inner pages;
+    the pre-flight render of the homepage (60 links) and the corporate sitemap
+    (829 URLs) confirm the About, Brands, Investors, News, Contact,
+    Corporate Governance, Privacy Policy and Disclaimer pointers. The
+    GitHubOrganization pointer github.com/SuncorpGroup was removed: the org has no
+    name, no website, is unverified and holds one 2015 ScalaTest fork, so nothing
+    ties it to Suncorp Group. Image set to the Suncorp og:image logo published on
+    suncorp.com.au.
+  evidence:
+  - url: https://www.suncorpgroup.com.au/
+    status: 200
+  - url: https://www.suncorpgroup.com.au/sitemap.xml
+    status: 200
+  - url: https://www.suncorpgroup.com.au/about
+    status: 200
+  - url: https://www.suncorpgroup.com.au/about/brands
+    status: 200
+  - url: https://www.suncorpgroup.com.au/investors
+    status: 200
+  - url: https://www.vero.com.au/secure/veroedge.html
+    status: 200
+  - url: https://www.linkedin.com/company/suncorp/
+    status: 200
+  - url: https://github.com/SuncorpGroup
+    status: 200
+  - url: https://www.suncorp.com.au/content/dam/suncorp/corporate/images/logos/Suncorp_New_Logo.png
+    status: 200
+x-enrichment:
+  date: '2026-10-20'
+  status: enriched
+  artifacts_added: 9
+  pass: modular-v1
+  engine: identity=anthropic,contract=anthropic,surfaces=anthropic,docs=anthropic,regulatory=anthropic

@@ -1,0 +1,12 @@
+generated: '2026-10-20'
+method: none
+source: >-
+  registry.npmjs.org and pypi.org/pypi probes 2026-10-20 for suncorp, suncorp-group,
+  aami (npm 404; PyPI returned 503 at probe time), plus review.yml (2026-07-25) which
+  found no SDK, CLI or source-code link on any Suncorp Group or brand property.
+packages: []
+note: >-
+  No first-party client library exists because there is no public API. The npm and
+  PyPI packages named "vero" are unrelated (npm "vero" is "a thin wrapper for Vero's
+  public api" from github.com/devmach/vero — the Vero email-marketing service, not
+  Suncorp's Vero insurance brand) and are deliberately not recorded.

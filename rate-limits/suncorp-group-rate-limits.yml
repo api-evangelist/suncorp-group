@@ -1,0 +1,10 @@
+name: Suncorp Group rate limits
+generated: '2026-10-20'
+method: none
+source: review.yml (2026-07-25 review) and apis.yml description
+limit_count: 0
+limits: []
+note: >-
+  No rate limits are documented because Suncorp Group publishes no public API,
+  developer portal or API reference. Its only machine-to-machine surfaces are gated
+  broker portals and trading networks, whose limits are not published.

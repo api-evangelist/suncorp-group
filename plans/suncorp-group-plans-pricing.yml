@@ -1,0 +1,16 @@
+name: Suncorp Group pricing
+generated: '2026-10-20'
+method: none
+source: review.yml (2026-07-25 review) and apis.yml description
+audience: unclear
+pricing_basis: none
+published: false
+delivery:
+  model: unclear
+plan_count: 0
+plans: []
+note: >-
+  Suncorp Group publishes no API or developer pricing: there is no public API.
+  Insurance premiums on its brand sites are consumer/business product prices, not
+  API pricing, and are not recorded. Broker access (VeroEdge, trading-network
+  connections) is granted through a Vero representative with no published price.
